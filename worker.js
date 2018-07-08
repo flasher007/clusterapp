@@ -36,7 +36,7 @@ class Worker extends SCWorker {
 
     httpServer.on('request', app);
 
-    let count = 0;
+    // let count = 0;
 
     /*
       In here we handle our incoming realtime connections and listen for events.

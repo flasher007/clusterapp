@@ -1,4 +1,5 @@
 const productsController = require('../controllers').products;
+const tasksController = require('../controllers').tasks;
 
 module.exports = (app) => {
     app.get('/api', (req, res) => res.status(200).send({
@@ -10,4 +11,10 @@ module.exports = (app) => {
     app.post('/api/products', productsController.create);
     app.put('/api/products/:id', productsController.update);
     app.delete('/api/products/:id', productsController.destroy);
+
+    app.get('/api/tasks', tasksController.list);
+    app.get('/api/tasks/:id', tasksController.get);
+    app.post('/api/tasks', tasksController.create);
+    app.put('/api/tasks/:id', tasksController.update);
+    app.delete('/api/tasks/:id', tasksController.destroy);
 };
