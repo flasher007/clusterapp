@@ -13,10 +13,13 @@
     "express": "4.16.3",
     "minimist": "1.1.0",
     "morgan": "1.7.0",
+    "mysql2": "^1.5.3",
     "sc-errors": "^1.4.0",
     "sc-framework-health-check": "^2.0.0",
     "sc-hot-reboot": "^1.0.0",
     "scc-broker-client": "^6.0.0",
+    "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.0.0",
     "serve-static": "1.13.2",
     "socketcluster": "^14.0.1",
     "socketcluster-client": "^13.0.0"
