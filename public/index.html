@@ -55,7 +55,7 @@
     <div class="container">
       <div class="content">
         <div class="title">
-          SocketCluster
+          SocketCluster & Sequelize Application
         </div>
         <div class="text">
           Design is not just what it looks like and feels like. Design is how it works. &mdash; Steve Jobs
@@ -81,19 +81,27 @@
         console.log('Socket is connected');
       });
 
-      socket.on('random', function (data) {
-        console.log('Received "random" event with data: ' + data.number);
+      // socket.on('random', function (data) {
+      //   console.log('Received "random" event with data: ' + data.number);
+      // });
+
+      socket.on('productChanges', (data) => {
+        console.log('Product model is changed', data);
       });
 
-      const sampleChannel = socket.subscribe('sample');
-
-      sampleChannel.on('subscribeFail', function (err) {
-        console.error('Failed to subscribe to the sample channel due to error: ' + err);
+      socket.on('todoChanges', (data) => {
+          console.log('Todo model is changed', data);
       });
 
-      sampleChannel.watch(function (num) {
-        console.log('Sample channel message:', num);
-      });
+      // const sampleChannel = socket.subscribe('sample');
+      //
+      // sampleChannel.on('subscribeFail', function (err) {
+      //   console.error('Failed to subscribe to the sample channel due to error: ' + err);
+      // });
+      //
+      // sampleChannel.watch(function (num) {
+      //   console.log('Sample channel message:', num);
+      // });
     </script>
   </body>
 </html>
