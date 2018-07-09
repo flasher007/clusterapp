@@ -26,7 +26,10 @@ module.exports = {
                 name: req.body.name,
                 price: req.body.price,
             })
-            .then(product => res.status(201).send(product))
+            .then(product => {
+                req.app.scServer.emit('productChanges', {action: 'create', data: product});
+                res.status(201).send(product);
+            })
             .catch(error => res.status(400).send(error));
     },
     update(req, res) {
@@ -43,7 +46,10 @@ module.exports = {
                         name: req.body.name || product.name,
                         price: req.body.price || product.price,
                     })
-                    .then(() => res.status(200).send(product))
+                    .then(() => {
+                        req.app.scServer.emit('productChanges', {action: 'update', data: product});
+                        res.status(200).send(product);
+                    })
                     .catch((error) => res.status(400).send(error));
             })
             .catch((error) => res.status(400).send(error));

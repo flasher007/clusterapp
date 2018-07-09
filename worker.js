@@ -16,6 +16,8 @@ class Worker extends SCWorker {
     const httpServer = this.httpServer;
     const scServer = this.scServer;
 
+    app.scServer = scServer;
+
     if (environment === 'dev') {
       // Log every HTTP request. See https://github.com/expressjs/morgan for other
       // available formats.
@@ -30,38 +32,12 @@ class Worker extends SCWorker {
     app.use(bodyParser.urlencoded({ extended: false }));
 
     require('./routes')(app);
-    app.get('*', (req, res) => res.status(200).send({
-        message: 'This method does not support',
-    }));
 
     httpServer.on('request', app);
 
-    // let count = 0;
-
-    /*
-      In here we handle our incoming realtime connections and listen for events.
-    */
-    scServer.on('connection', function (socket) {
-
-      // Some sample logic to show how to handle client events,
-      // replace this with your own logic
-
-      // socket.on('sampleClientEvent', function (data) {
-      //   count++;
-      //   console.log('Handled sampleClientEvent', data);
-      //   scServer.exchange.publish('sample', count);
-      // });
-
-      // let interval = setInterval(function () {
-      //   socket.emit('random', {
-      //     number: Math.floor(Math.random() * 5)
-      //   });
-      // }, 1000);
-
-      socket.on('disconnect', function () {
-        clearInterval(interval);
-      });
-    });
+    // scServer.on('connection', function (socket) {
+    //
+    // });
   }
 }
 

@@ -23,10 +23,13 @@ module.exports = {
     create(req, res) {
         return Task
             .create({
-                name: req.body.name,
-                price: req.body.price,
+                title: req.body.title,
+                status: req.body.status,
             })
-            .then(task => res.status(201).send(task))
+            .then(task => {
+                req.app.scServer.emit('taskChanges', {action: 'create', data: product});
+                res.status(201).send(task);
+            })
             .catch(error => res.status(400).send(error));
     },
     update(req, res) {
@@ -40,10 +43,13 @@ module.exports = {
                 }
                 return task
                     .update({
-                        name: req.body.name || task.name,
-                        price: req.body.price || task.price,
+                        title: req.body.title || task.title,
+                        status: req.body.status || task.status,
                     })
-                    .then(() => res.status(200).send(task))
+                    .then(() => {
+                        req.app.scServer.emit('taskChanges', {action: 'update', data: product});
+                        res.status(200).send(task);
+                    })
                     .catch((error) => res.status(400).send(error));
             })
             .catch((error) => res.status(400).send(error));

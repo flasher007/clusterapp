@@ -6,6 +6,10 @@ module.exports = (app) => {
         message: 'Welcome to the API v1.0!',
     }));
 
+    // console.log(app.scServer);
+
+    // socket.emit('productChanges', {action: 'update'});
+
     app.get('/api/products', productsController.list);
     app.get('/api/products/:id', productsController.get);
     app.post('/api/products', productsController.create);
@@ -17,4 +21,8 @@ module.exports = (app) => {
     app.post('/api/tasks', tasksController.create);
     app.put('/api/tasks/:id', tasksController.update);
     app.delete('/api/tasks/:id', tasksController.destroy);
+
+    app.get('*', (req, res) => res.status(404).send({
+        message: 'Error 404. Page not found',
+    }));
 };
