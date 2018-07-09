@@ -27,7 +27,10 @@ module.exports = {
                 price: req.body.price,
             })
             .then(product => {
-                req.app.scServer.emit('productChanges', {action: 'create', data: product});
+                let clients = req.app.scServer.clients;
+                Object.keys(clients).forEach(function (key) {
+                    clients[key].emit('productChanges', {action: 'create', data: product});
+                });
                 res.status(201).send(product);
             })
             .catch(error => res.status(400).send(error));
@@ -47,7 +50,10 @@ module.exports = {
                         price: req.body.price || product.price,
                     })
                     .then(() => {
-                        req.app.scServer.emit('productChanges', {action: 'update', data: product});
+                        let clients = req.app.scServer.clients;
+                        Object.keys(clients).forEach(function (key) {
+                            clients[key].emit('productChanges', {action: 'update', data: product});
+                        });
                         res.status(200).send(product);
                     })
                     .catch((error) => res.status(400).send(error));

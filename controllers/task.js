@@ -27,7 +27,10 @@ module.exports = {
                 status: req.body.status,
             })
             .then(task => {
-                req.app.scServer.emit('taskChanges', {action: 'create', data: product});
+                let clients = req.app.scServer.clients;
+                Object.keys(clients).forEach(function (key) {
+                    clients[key].emit('taskChanges', {action: 'create', data: product});
+                });
                 res.status(201).send(task);
             })
             .catch(error => res.status(400).send(error));
@@ -47,7 +50,10 @@ module.exports = {
                         status: req.body.status || task.status,
                     })
                     .then(() => {
-                        req.app.scServer.emit('taskChanges', {action: 'update', data: product});
+                        let clients = req.app.scServer.clients;
+                        Object.keys(clients).forEach(function (key) {
+                            clients[key].emit('taskChanges', {action: 'update', data: product});
+                        });
                         res.status(200).send(task);
                     })
                     .catch((error) => res.status(400).send(error));
