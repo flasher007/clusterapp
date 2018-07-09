@@ -22,15 +22,24 @@ http://YOUR_SERVER:8000/
 **Products**
 
 GET /api/products
+
 GET /api/products/:id
+
 POST /api/products
+
 PUT /api/products/:id
+
 DELETE /api/products/:id
+
 
 **Tasks**
 
 GET /api/tasks
+
 GET /api/tasks/:id
+
 POST /api/tasks
+
 PUT /api/tasks/:id
+
 DELETE /api/tasks/:id
